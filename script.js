@@ -14,7 +14,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const API_KEY = "YOUR_OPENWEATHERMAP_API_KEY";
 
     // Add click event listener to "Get Weather" button
-    getWeatherBtn.addEventListener("click", async () => {
+    getWeatherBtn.addEventListener("click", addCity);
+
+    // Add keypress event listener to "Input Field", press "Enter" key to get result
+    cityInput.addEventListener("keypress", (e) => {
+        if(e.key === "Enter"){
+            addCity();
+        }
+    });
+
+    async function addCity() {
         const city = cityInput.value.trim();   // Get city name from input and remove extra spaces
         if (!city) return;                     // Stop if input is empty
 
@@ -26,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // If any error occurs (e.g., city not found), show error message
             showError();
         }
-    });
+    }
 
     // Fetch weather data from OpenWeatherMap API
     async function fetchWeatherData(city) {
